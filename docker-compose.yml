@@ -1,0 +1,24 @@
+db:
+  image: postgres
+  ports:
+    - "5432"
+
+web:
+  build: ./web
+  command: bundle exec rails s -p 3000 -b '0.0.0.0'
+  volumes:
+    - ./web:/web
+  ports:
+    - "3000:3000"
+  links:
+    - db
+
+web2:
+  build: ./web2
+  command: bundle exec rails s -p 3001 -b '0.0.0.0'
+  volumes:
+    - ./web2:/web2
+  ports:
+    - "3001:3001"
+  links:
+    - db
